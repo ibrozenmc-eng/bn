@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block body %}
+<section class="hero"><h1>گیفت و پریمیوم تلگرام،<br>بعد از پرداخت مستقیم می‌رسد.</h1>
+<p>حساب بساز، تلگرامت را وصل کن، با زرین‌پال بپرداز. بقیه‌اش خودکار است.</p></section>
+{% macro list(items) %}<ul class="ledger">{% for p in items %}<li><span class="t">{{ p.title }}</span><span class="s">{{ p.stars }} استارز</span>
+<span class="p">{{ "{:,}".format(price(p.stars)) }} تومان</span>
+{% if user %}<form method="post" action="/buy/{{ p.id }}"><button>خرید</button></form>{% else %}<a class="btn" href="/login">ورود برای خرید</a>{% endif %}</li>{% endfor %}</ul>{% endmacro %}
+<h2>پریمیوم</h2>{{ list(premium) }}
+<h2>گیفت‌ها</h2>{% if gifts %}{{ list(gifts) }}{% else %}<p class="muted">فهرست گیفت‌ها به‌زودی از پنل مدیریت بارگذاری می‌شود.</p>{% endif %}
+{% endblock %}

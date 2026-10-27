@@ -1,0 +1,9 @@
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>{% block title %}Brozen | گیفت و پریمیوم تلگرام{% endblock %}</title>
+<link rel="stylesheet" href="/static/style.css"></head><body>
+<header><a class="mark" href="/">Brozen</a><nav>
+{% if user %}<a href="/dashboard">{{ user.username }}</a>{% if user.username in admins %}<a href="/admin">مدیریت</a>{% endif %}<a href="/logout">خروج</a>
+{% else %}<a href="/login">ورود</a><a class="btn" href="/register">ثبت‌نام</a>{% endif %}</nav></header>
+{% if flash %}<div class="flash">{{ flash }}</div>{% endif %}
+<main>{% block body %}{% endblock %}</main>
+<footer>Brozen؛ ارسال خودکار گیفت و پریمیوم تلگرام. بعد از پرداخت، سفارش بدون دخالت دستی ارسال می‌شود.</footer></body></html>

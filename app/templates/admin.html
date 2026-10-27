@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block body %}
+<h1>مدیریت</h1>
+<form method="post" action="/admin/sync"><button>همگام‌سازی گیفت‌ها از تلگرام</button></form>
+<h2>سفارش‌ها</h2><table><tr><th>#</th><th>کاربر</th><th>محصول</th><th>مبلغ</th><th>وضعیت</th><th>خطا</th><th></th></tr>
+{% for o, p, u in rows %}<tr><td>{{ o.id }}</td><td>{{ u.username }}</td><td>{{ p.title }}</td><td>{{ "{:,}".format(o.amount) }}</td><td class="st-{{ o.status }}">{{ o.status }}</td><td dir="ltr">{{ o.error or "" }}</td>
+<td>{% if o.status == "failed" and o.paid_at %}<form method="post" action="/admin/retry/{{ o.id }}"><button>تلاش مجدد</button></form>{% endif %}</td></tr>{% endfor %}</table>
+<p class="muted">سفارش در وضعیت «sending» که بیش از چند دقیقه مانده را دستی بررسی کن (ممکن است ارسال شده باشد)، قبل از تلاش مجدد.</p>
+<h2>محصولات</h2><table>{% for p in prods %}<tr><td>{{ p.title }}</td><td>{{ p.stars }}</td><td>{{ "{:,}".format(price(p.stars)) }}</td>
+<td><form method="post" action="/admin/toggle/{{ p.id }}"><button>{{ "غیرفعال کن" if p.active else "فعال کن" }}</button></form></td></tr>{% endfor %}</table>{% endblock %}

@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block body %}
+<section class="narrow"><h1>{{ "ساخت حساب" if mode == "register" else "ورود" }}</h1>
+<form method="post" class="stack"><label>نام کاربری<input name="username" dir="ltr" required autocomplete="username"></label>
+<label>رمز عبور<input name="password" type="password" dir="ltr" required minlength="8" autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}"></label>
+<button>{{ "ثبت‌نام" if mode == "register" else "ورود" }}</button></form>
+<p class="muted">{% if mode == "register" %}حساب داری؟ <a href="/login">وارد شو</a>{% else %}حساب نداری؟ <a href="/register">ثبت‌نام کن</a>{% endif %}</p></section>{% endblock %}

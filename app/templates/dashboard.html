@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block body %}
+<h1>پروفایل {{ user.username }}</h1>
+<section class="box">{% if user.tg_id %}<p>تلگرام وصل است: <b>{{ user.tg_name or user.tg_id }}</b>. سفارش‌ها به همین حساب ارسال می‌شوند.</p>
+{% else %}<p>برای دریافت گیفت باید تلگرامت را وصل کنی:</p>
+<a class="btn" href="https://t.me/{{ bot }}?start={{ user.link_code }}" target="_blank" rel="noopener">اتصال تلگرام</a>
+<p class="muted">در ربات روی Start بزن، بعد این صفحه را تازه کن.</p>{% endif %}</section>
+<h2>سفارش‌ها</h2>
+{% if rows %}<table><tr><th>#</th><th>محصول</th><th>مبلغ</th><th>وضعیت</th></tr>
+{% for o, p in rows %}<tr><td>{{ o.id }}</td><td>{{ p.title }}</td><td>{{ "{:,}".format(o.amount) }}</td>
+<td class="st-{{ o.status }}">{{ {"pending":"در انتظار پرداخت","paid":"پرداخت شد، در صف ارسال","sending":"در حال ارسال","delivered":"ارسال شد","failed":"ناموفق؛ پیگیری می‌شود","cancelled":"لغو شد"}[o.status] }}</td></tr>{% endfor %}</table>
+{% else %}<p class="muted">هنوز سفارشی نداری. از صفحه اول یک پریمیوم یا گیفت انتخاب کن.</p>{% endif %}{% endblock %}
